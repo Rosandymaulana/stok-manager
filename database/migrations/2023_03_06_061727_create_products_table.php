@@ -20,6 +20,8 @@ return new class extends Migration
             $table->foreignId('type')->constrained('type_products');
             $table->integer('initial_quantity');
             $table->string('description');
+            $table->string('image');
+            $table->string('document', 255);
             $table->timestamps();
         });
     }

@@ -51,7 +51,7 @@
                                         <span>Tambah Data</span>
                                     </a><br><br>
 
-                                    <table class="table table-borderless table-bordered py-3" id="">
+                                    <table class="table table-borderless table-bordered py-3" id="myTable">
                                         <thead>
                                             <tr>
                                                 <th scope="col">ID Barang</th>
@@ -70,10 +70,12 @@
                                             {{-- <img class="img-fluid mx-auto" style="max-width: 100%"
                                                 src="{{asset('storage/'.$item->image)}}" alt=""> --}}
                                             <tr>
+                                                {{-- src="{{ url('/product_img/'.$item->image) }}" --}}
+                                                {{-- src="{{asset('storage/'.$item->image)}} " --}}
                                                 <td>{{ $item->product_ID }}</td>
-                                                <td><img style="min-width: 100%" class="
-                                                        img-fluid text-center" src="{{asset('storage/'.$item->image)}}"
-                                                        alt="">
+                                                <td><img class="img-fluid mx-auto" style="max-width: 100%"
+                                                        src="{{asset('storage/'.$item->image)}}" alt="">
+                                                </td>
                                                 <td>{{ $item->product_name }}</td>
                                                 <td>{{ $item->buy_rate }}</td>
                                                 <td>{{ $item->dt_type->name }}</td>
@@ -159,6 +161,13 @@
                                 <tr>
                                     <th scope="row">Description</th>
                                     <td>{{ $data->description }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Image</th>
+                                    <td>
+                                        <img style="min-width: 100%" class="img-fluid text-center"
+                                            src="{{asset('storage/'.$item->image)}}" alt="">
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

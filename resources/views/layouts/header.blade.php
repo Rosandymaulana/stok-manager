@@ -4,7 +4,7 @@
     <div class="d-flex align-items-center justify-content-between">
         <a href="{{ url('/') }}" class="logo d-flex align-items-center">
             <img src="assets/img/logo.png" alt="">
-            {{-- <span class="d-none d-lg-block">Hello {{ auth()->user()->name }}!</span> --}}
+            <span class="d-none d-lg-block">Hello {{ 'Anderson' }}!</span>
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->

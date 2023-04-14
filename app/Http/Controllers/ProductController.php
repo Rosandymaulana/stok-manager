@@ -7,6 +7,7 @@ use App\Models\TypeProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 use function PHPUnit\Framework\fileExists;
 
@@ -43,8 +44,19 @@ class ProductController extends Controller
             'image' => 'mimes:jpeg,png',
         ]);
 
-        if ($request->file('image')) {
-            $image_name = $request->file('image')->store('images', 'public');
+        // $file = $request->file('image');
+        // $nama_file = time() . "_" . $file->getClientOriginalName();
+        // // $file->getClientOriginalName();
+        // // $file->getClientOriginalExtension();
+        // // $file->getRealPath();
+        // // $file->getSize();
+        // // $file->getMimeType();
+
+        // $tujuan_upload = 'product_img';
+        // $file->move($tujuan_upload, $nama_file);
+        if ($file = $request->file('image')) {
+            $filename = $file->getClientOriginalName();
+            $image_name = $request->file('image')->storeAs('images', $filename, 'public');
         };
 
         Product::create([
@@ -90,15 +102,35 @@ class ProductController extends Controller
         $product->type = $request->type;
         $product->initial_quantity = $request->initial_quantity;
         $product->description = $request->description;
+        $file = $request->file('image');
 
-        if ($product->image && fileExists(storage_path('app/public/' . $product->image))) {
-            Storage::delete('public' . $product->image);
+        if ($file != '') {
+            $nama_file = time() . "_" . $file->getClientOriginalName();
+            $tujuan_upload = 'storage/images';
+            $file->move($tujuan_upload, $nama_file);
+            $data['image'] = $nama_file;
+            File::delete('storage/images/' . $product->image);
+            // unlink('storage/images/' . $product->image);
         }
 
-        if ($request->file('image')) {
-            $image_name = $request->file('image')->store('images', 'public');
-            $product->image = $image_name;
-        };
+        // if ($request->hasFile('image')) {
+        //     // unlink('public/' . $product->image);
+        //     File::delete('public' . $product->image);
+        //     $filename = $file->getClientOriginalName();
+        //     $image_name = $request->file('image')->storeAs('images', $filename, 'public');
+        //     // $file->move('images', 'public', $file->getClientOriginalName());
+        //     $product->image = $image_name;
+        // }
+
+        // $destination = '/app/public/images/1.jpg' . $product->image;
+
+
+        // if ($product->image && fileExists(public_path('images' . $product->image))) {
+        //     // unlink('public' . $product->image);
+        //     // unlink(public_path($product->image));
+        //     // Storage::delete('public/images/' . $product->image);
+        //     // File::delete('public' . $product->image);
+        // }
 
         // $image_name = $request->file('image')->store('images', 'public');
         // $product->image = $image_name;

@@ -28,6 +28,7 @@ class ProductSeeder extends Seeder
                 'type' => $faker->numberBetween(1, 10),
                 'initial_quantity' => $faker->numberBetween(0, 150),
                 'description' => $faker->paragraph(),
+                'image' => $faker->imageUrl(),
                 'created_at' => new DateTime(now()),
                 'updated_at' => new DateTime(now())
             ]);

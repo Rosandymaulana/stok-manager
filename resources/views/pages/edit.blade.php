@@ -1,4 +1,6 @@
 {{-- @section('content') --}}
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">
@@ -31,7 +33,7 @@
                         method="post" enctype="multipart/form-data">
                         {{ csrf_field() }}
 
-                        @method('PATCH')
+                        @method('PUT')
                         <div class="row mb-3">
                             <label for="product_ID" class="col-sm-2 col-form-label">Product ID</label>
                             <div class="col-sm-10">
@@ -86,13 +88,12 @@
                         <div class="row mb-3">
                             <label for="image" class="col-sm-2 col-form-label">Image</label>
                             <div class="col-sm-10">
-                                <img width="150px" src="{{asset('storage/'.$products->image)}}" class="mb-3">
+                                <img width="150px" src="{{asset('storage/'.$products->image)}}" class="mb-3"
+                                    id="preview-image-before-upload">
                                 <input type="file" class="form-control" name="image" value="{{$products->image}}"
                                     id="image">
                             </div>
                         </div>
-
-
 
                         <input type="submit" value="update" class="btn btn-success">
                     </form>
@@ -102,4 +103,29 @@
     </main>
     @endsection
 </body>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function (e) {
+ 
+   
+   $('#image').change(function(){
+            
+    let reader = new FileReader();
+ 
+    reader.onload = (e) => { 
+ 
+      let p = $('#preview-image-before-upload').attr('src', e.target.result); 
+      console.log(p);
+    }
+ 
+    reader.readAsDataURL(this.files[0]); 
+   
+   });
+   
+});
+ 
+</script>
 {{-- @endsection --}}
+
+</html>
